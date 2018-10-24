@@ -7,7 +7,7 @@ from ocdsmacaw.common.common import common_checks_context, get_additional_codeli
 
 from django.utils.html import mark_safe, escape, conditional_escape, format_html
 
-import CommonMark
+import commonmark
 import bleach
 
 
@@ -397,7 +397,7 @@ def common_checks_ocds(context, upload_dir, json_data, schema_obj, api=False, ca
             if 'description' in schema_block:
                 error['schema_title'] = escape(schema_block.get('title', ''))
                 error['schema_description_safe'] = mark_safe(bleach.clean(
-                    CommonMark.commonmark(schema_block['description']),
+                    commonmark.commonmark(schema_block['description']),
                     tags=bleach.sanitizer.ALLOWED_TAGS + ['p']
                 ))
             if ref_info:
