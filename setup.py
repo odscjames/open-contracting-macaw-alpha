@@ -14,4 +14,6 @@ setup(
         'jsonref',
         'jsonschema',
     ],
+    entry_points='''[console_scripts]
+ocdsmacaw = ocdsmacaw.cli.__main__:main''',
 )
