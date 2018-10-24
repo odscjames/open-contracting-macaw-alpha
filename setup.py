@@ -14,7 +14,8 @@ setup(
         'jsonref',
         'jsonschema',
         'CommonMark',
-        'bleach'
+        'bleach',
+        'requests',
     ],
     entry_points='''[console_scripts]
 ocdsmacaw = ocdsmacaw.cli.__main__:main''',
