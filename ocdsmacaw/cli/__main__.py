@@ -4,6 +4,7 @@ import tempfile
 import shutil
 import json
 
+
 def main():
     parser = argparse.ArgumentParser(description='OCDS Macaw CLI')
     parser.add_argument("filename")
@@ -19,6 +20,7 @@ def main():
 
 
     print(json.dumps(result, indent=4))
+
 
 if __name__ == '__main__':
     main()
