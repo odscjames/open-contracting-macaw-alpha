@@ -19,8 +19,8 @@ from jsonschema.exceptions import ValidationError
 from jsonschema.validators import Draft4Validator as validator
 from django.utils.html import escape, conditional_escape, format_html
 
-from cove.lib.exceptions import cove_spreadsheet_conversion_error
-from cove.lib.tools import cached_get_request, decimal_default
+from ocdsmacaw.common.exceptions import cove_spreadsheet_conversion_error
+from ocdsmacaw.common.tools import cached_get_request, decimal_default
 
 
 uniqueItemsValidator = validator.VALIDATORS.pop("uniqueItems")
