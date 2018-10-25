@@ -6,6 +6,7 @@ from .ocds import common_checks_ocds
 from cove.lib.common import get_spreadsheet_meta_data
 from ocdsmacaw.common.converters import convert_spreadsheet, convert_json
 from cove.lib.tools import get_file_type
+from .settings import OCDSMacawConfig
 
 
 class APIException(Exception):
@@ -70,7 +71,10 @@ def context_api_transform(context):
     return context
 
 
-def ocds_json_output(output_dir, file, schema_version, convert, cache_schema=False, file_type=None, json_data=None):
+def ocds_json_output(output_dir, file, schema_version, convert, cache_schema=False, file_type=None, json_data=None, config=None):
+    if not config:
+        config = OCDSMacawConfig()
+
     context = {}
     if not file_type:
         file_type = get_file_type(file)
@@ -84,7 +88,7 @@ def ocds_json_output(output_dir, file, schema_version, convert, cache_schema=Fal
                 except ValueError:
                     raise APIException('The file looks like invalid json')
 
-        schema_ocds = SchemaOCDS(schema_version, json_data, cache_schema=cache_schema)
+        schema_ocds = SchemaOCDS(schema_version, json_data, cache_schema=cache_schema, ocds_macaw_config=config)
 
         if schema_ocds.invalid_version_data:
             msg = '\033[1;31mThe schema version in your data is not valid. Accepted values: {}\033[1;m'
@@ -100,9 +104,9 @@ def ocds_json_output(output_dir, file, schema_version, convert, cache_schema=Fal
             )
 
     else:
-        metatab_schema_url = SchemaOCDS(select_version='1.1').release_pkg_schema_url
+        metatab_schema_url = SchemaOCDS(select_version='1.1', ocds_macaw_config=config).release_pkg_schema_url
         metatab_data = get_spreadsheet_meta_data(output_dir, file, metatab_schema_url, file_type=file_type)
-        schema_ocds = SchemaOCDS(schema_version, release_data=metatab_data, cache_schema=cache_schema)
+        schema_ocds = SchemaOCDS(schema_version, release_data=metatab_data, cache_schema=cache_schema, ocds_macaw_config=config)
 
         if schema_ocds.invalid_version_data:
             msg = '\033[1;31mThe schema version in your data is not valid. Accepted values: {}\033[1;m'

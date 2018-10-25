@@ -8,7 +8,6 @@ import json_merge_patch
 import requests
 from cached_property import cached_property
 from . import settings
-from django.utils import translation
 
 
 from cove.lib.common import SchemaJsonMixin, schema_dict_fields_generator, get_schema_codelist_paths, load_core_codelists, load_codelist
@@ -26,7 +25,7 @@ class SchemaOCDS(SchemaJsonMixin):
     default_version = config['schema_version']
     default_schema_host = version_choices[default_version][1]
 
-    def __init__(self, select_version=None, release_data=None, cache_schema=False):
+    def __init__(self, select_version=None, release_data=None, cache_schema=False, ocds_macaw_config=None):
         '''Build the schema object using an specific OCDS schema version
 
         The version used will be select_version, release_data.get('version') or
@@ -37,6 +36,7 @@ class SchemaOCDS(SchemaJsonMixin):
         self.version = self.default_version
         self.schema_host = self.default_schema_host
         self.cache_schema = cache_schema
+        self.ocds_macaw_config = ocds_macaw_config
 
         # Missing package is only for original json data
         self.missing_package = False
@@ -228,7 +228,7 @@ class SchemaOCDS(SchemaJsonMixin):
             except ValueError:  # would be json.JSONDecodeError for Python 3.5+
                 self.invalid_extension[extensions_descriptor_url] = 'invalid JSON'
                 continue
-            cur_language = translation.get_language()
+            cur_language = self.ocds_macaw_config.config['current_language']
 
             extension_description = {'url': extensions_descriptor_url, 'release_schema_url': url}
 

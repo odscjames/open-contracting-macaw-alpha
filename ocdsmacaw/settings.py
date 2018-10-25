@@ -19,8 +19,13 @@ COVE_CONFIG = {
     'root_id': 'ocid',
     'convert_titles': False,
     'input_methods': ['upload', 'url', 'text'],
-    'support_email': 'data@open-contracting.org'
+    'support_email': 'data@open-contracting.org',
+    'current_language': 'en',
 }
 
 # Set default schema version to the latest version
 COVE_CONFIG['schema_version'] = list(COVE_CONFIG['schema_version_choices'].keys())[-1]
+
+class OCDSMacawConfig:
+    def __init__(self, config=COVE_CONFIG):
+        self.config = config
