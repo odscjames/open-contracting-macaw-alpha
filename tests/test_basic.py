@@ -45,3 +45,16 @@ def test_error_bad_version():
                                                     file_type='json')
     finally:
         shutil.rmtree(cove_temp_folder)
+
+def test_error_bad_json():
+    filename = os.path.join(os.path.dirname(
+        os.path.realpath(__file__)), 'fixtures', 'basic', 'bad_json.json'
+    )
+
+    cove_temp_folder = tempfile.mkdtemp(prefix='ocdsmacaw-tests-', dir=tempfile.gettempdir())
+    try:
+        with pytest.raises(ocdsmacaw.api.APIException):
+            ocdsmacaw.api.ocds_json_output(cove_temp_folder, filename, None, convert=False, cache_schema=True,
+                                                    file_type='json')
+    finally:
+        shutil.rmtree(cove_temp_folder)

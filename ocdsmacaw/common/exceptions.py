@@ -22,6 +22,9 @@ class UnrecognisedFileTypeXML(CoveInputDataError):
 class CantConvertSpreadSheet(CoveInputDataError):
     pass
 
+class CantConvertJSON(CoveInputDataError):
+    pass
+
 def cove_spreadsheet_conversion_error(func):
     @functools.wraps(func)
     def wrapper(request, *args, **kwargs):

@@ -6,11 +6,11 @@ import warnings
 
 import flattentool
 import flattentool.exceptions
+import ocdsmacaw.common.exceptions
 from ocdsmacaw import settings
-from django.utils.translation import ugettext_lazy as _
 from flattentool.json_input import BadlyFormedJSONError
 
-from cove.lib.exceptions import CoveInputDataError, cove_spreadsheet_conversion_error
+from ocdsmacaw.common.exceptions import CoveInputDataError, cove_spreadsheet_conversion_error
 
 logger = logging.getLogger(__name__)
 config = settings.COVE_CONFIG
@@ -169,12 +169,7 @@ def convert_json(upload_dir, upload_url, file_name, schema_url=None, replace=Fal
             context['converted_file_size_titles'] = os.path.getsize(converted_path + '-titles.xlsx')
 
     except BadlyFormedJSONError as err:
-        raise CoveInputDataError(context={
-            'sub_title': _("Sorry, we can't process that data"),
-            'link': 'index',
-            'link_text': _('Try Again'),
-            'msg': _('We think you tried to upload a JSON file, but it is not well formed JSON.\n\nError message: {}'.format(err))
-        })
+        raise ocdsmacaw.common.exceptions.CantConvertJSON()
     except Exception as err:
         logger.exception(err, extra={
             'request': request,
