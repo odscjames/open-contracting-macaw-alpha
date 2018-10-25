@@ -36,15 +36,6 @@ class UnrecognisedFileTypeXML(CoveInputDataError):
     }
 
 
-def cove_web_input_error(func):
-    @functools.wraps(func)
-    def wrapper(request, *args, **kwargs):
-        try:
-            return func(request, *args, **kwargs)
-        except CoveInputDataError as err:
-            return render(request, 'error.html', context=err.context)
-    return wrapper
-
 
 def cove_spreadsheet_conversion_error(func):
     @functools.wraps(func)
