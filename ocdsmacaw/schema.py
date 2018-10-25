@@ -10,8 +10,8 @@ from cached_property import cached_property
 from . import settings
 
 
-from cove.lib.common import SchemaJsonMixin, schema_dict_fields_generator, get_schema_codelist_paths, load_core_codelists, load_codelist
-from cove.lib.tools import cached_get_request
+from ocdsmacaw.common.common import SchemaJsonMixin, schema_dict_fields_generator, get_schema_codelist_paths, load_core_codelists, load_codelist
+from ocdsmacaw.common.tools import cached_get_request
 
 
 config = settings.COVE_CONFIG

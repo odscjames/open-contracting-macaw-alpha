@@ -3,9 +3,9 @@ import os
 
 from .schema import SchemaOCDS
 from .ocds import common_checks_ocds
-from cove.lib.common import get_spreadsheet_meta_data
+from ocdsmacaw.common.common import get_spreadsheet_meta_data
 from ocdsmacaw.common.converters import convert_spreadsheet, convert_json
-from cove.lib.tools import get_file_type
+from ocdsmacaw.common.tools import get_file_type
 from .settings import OCDSMacawConfig
 
 
